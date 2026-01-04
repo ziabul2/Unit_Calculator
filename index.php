@@ -170,6 +170,22 @@ require_once 'smart-biller/includes/functions.php';
                         </div>
 
                         <div id="resultsArea" class="d-none">
+                            <!-- Separate Unit Display for Dual Mode -->
+                            <div class="row g-3 mb-3 d-none" id="dualUnitsRow">
+                                <div class="col-6">
+                                    <div class="p-2 px-3 rounded-3 bg-dark-soft border border-secondary border-opacity-25">
+                                        <div class="small text-secondary fw-bold text-uppercase" style="font-size: 0.7rem;">Main Meter</div>
+                                        <div class="h5 m-0 fw-bold" id="resMainUnits">0.00 <span class="small fw-normal">Units</span></div>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="p-2 px-3 rounded-3 bg-emerald bg-opacity-10 border border-emerald border-opacity-25">
+                                        <div class="small text-emerald fw-bold text-uppercase" style="font-size: 0.7rem;">Sub Meter</div>
+                                        <div class="h5 m-0 fw-bold text-emerald" id="resSubUnits">0.00 <span class="small fw-normal">Units</span></div>
+                                    </div>
+                                </div>
+                            </div>
+
                             <!-- Summary Cards -->
                             <div class="row g-3 mb-4">
                                 <div class="col-md-6">
@@ -234,8 +250,10 @@ require_once 'smart-biller/includes/functions.php';
                             <thead>
                                 <tr>
                                     <th>Date</th>
+                                    <th>Mode</th>
                                     <th>Units</th>
                                     <th>Amount</th>
+                                    <th>Details</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>

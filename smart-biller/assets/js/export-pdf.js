@@ -46,7 +46,7 @@ document.getElementById('exportPdfBtn').addEventListener('click', () => {
         body: [
             ['Total Consumption', `${data.totalUnits.toFixed(2)} Units`],
             ['Sub-Meter Consumption', `${data.subUnits.toFixed(2)} Units`],
-            ['Effective Average Rate', `Tk ${data.avgRate.toFixed(4)} / Unit`],
+            ['Effective Average Rate', `Tk ${data.avgRate.toFixed(2)} / Unit`],
             ['Total Bill Amount', `Tk ${data.totalBill.toFixed(2)}`]
         ],
         theme: 'striped',

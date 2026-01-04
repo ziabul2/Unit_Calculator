@@ -51,7 +51,7 @@ class BillingEngine {
         $avgRate = $energyCost / $totalUnits;
         
         $tenantUnits = $subUnits;
-        $ownerUnits = $totalUnits - $subUnits;
+        $ownerUnits = max(0, $totalUnits - $subUnits);
 
         $tenantEnergy = $tenantUnits * $avgRate;
         $ownerEnergy = $ownerUnits * $avgRate;
@@ -64,16 +64,15 @@ class BillingEngine {
                 'units' => round($ownerUnits, 2),
                 'energy' => round($ownerEnergy, 2),
                 'fixed' => round($fixedSplit, 2),
-                'total' => round($ownerEnergy + $fixedSplit, 2)
+                'total' => ceil($ownerEnergy + $fixedSplit)
             ],
             'tenant' => [
                 'units' => round($tenantUnits, 2),
                 'energy' => round($tenantEnergy, 2),
                 'fixed' => round($fixedSplit, 2),
-                'total' => round($tenantEnergy + $fixedSplit, 2)
+                'total' => ceil($tenantEnergy + $fixedSplit)
             ],
-            'avg_rate' => round($avgRate, 4)
+            'avg_rate' => round($avgRate, 2)
         ];
     }
 }
-?>

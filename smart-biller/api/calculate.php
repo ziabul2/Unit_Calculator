@@ -4,6 +4,8 @@
  * Provides authoritative bill calculation results.
  */
 header('Content-Type: application/json');
+error_reporting(E_ALL);
+ini_set('display_errors', 0); // Prevent PHP errors from breaking JSON output
 require_once '../includes/functions.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -26,23 +28,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // 3. Apply VAT to (Energy Cost + Demand Charge)
     $fixedCharges = $demandCharge + (($energyCost + $demandCharge) * ($vatPercent / 100));
-    $totalBill = $energyCost + $fixedCharges;
+    $totalBill = ceil($energyCost + $fixedCharges);
 
     // 4. Split logic
     $splitData = BillingEngine::splitBill($totalUnits, $subUnits, $energyCost, $fixedCharges);
 
+    $responseData = [
+        'totalUnits' => $totalUnits,
+        'subUnits' => $subUnits,
+        'energyCost' => $energyCost,
+        'fixedCharges' => round($fixedCharges, 2),
+        'totalBill' => round($totalBill, 2),
+        'avgRate' => $splitData['avg_rate'],
+        'owner' => $splitData['owner'],
+        'tenant' => $splitData['tenant']
+    ];
+
+    // ----------------------------------
+
     $response = [
         'status' => 'success',
-        'data' => [
-            'totalUnits' => $totalUnits,
-            'subUnits' => $subUnits,
-            'energyCost' => $energyCost,
-            'fixedCharges' => round($fixedCharges, 2),
-            'totalBill' => round($totalBill, 2),
-            'avgRate' => $splitData['avg_rate'],
-            'owner' => $splitData['owner'],
-            'tenant' => $splitData['tenant']
-        ]
+        'data' => $responseData
     ];
 
     echo json_encode($response);
@@ -50,4 +56,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 echo json_encode(['status' => 'error', 'message' => 'Invalid Request']);
-?>
