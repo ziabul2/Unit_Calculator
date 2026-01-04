@@ -27,13 +27,39 @@ require_once 'smart-biller/includes/functions.php';
 </head>
 <body class="bg-dark text-light">
 
-    <div class="container-fluid min-vh-100 py-4">
-        <!-- Header Section -->
-        <header class="text-center mb-5">
-            <h1 class="display-4 fw-bold gradient-text">Smart Biller</h1>
-            <p class="lead text-secondary">Advanced Electricity Splitter & Slab Calculator</p>
-        </header>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark-soft border-bottom border-secondary border-opacity-25 py-3 mb-5 sticky-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold gradient-text fs-3" href="index.php">
+                <i class="bi bi-lightning-charge-fill me-2"></i>Smart Biller
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navContent">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navContent">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item">
+                        <a class="nav-link text-light px-3 active" href="index.php">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light px-3" href="smart-biller/pages/about.php">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light px-3" href="smart-biller/pages/contact.php">Contact</a>
+                    </li>
+                    <li class="nav-item ms-lg-3">
+                        <button class="btn btn-outline-cyan rounded-pill px-4" id="viewHistoryBtn">
+                            <i class="bi bi-clock-history me-1"></i> History
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
+    <div class="container-fluid py-4">
+        <!-- Header Section (Removed and replaced by Nav) -->
+        
         <div class="row g-4 justify-content-center">
             <!-- Left Column: Inputs -->
             <div class="col-lg-5">
@@ -45,7 +71,7 @@ require_once 'smart-biller/includes/functions.php';
                         </h4>
                         
                         <form id="billingForm">
-                            <!-- Mode Selection -->
+                            <!-- Mode Selection (unchanged) -->
                             <div class="mb-4">
                                 <label class="form-label text-secondary small text-uppercase fw-bold">Billing Mode</label>
                                 <div class="btn-group w-100" role="group">
@@ -189,12 +215,7 @@ require_once 'smart-biller/includes/functions.php';
             </div>
         </div>
 
-        <!-- History Section (Hidden by default, triggered by JS) -->
-        <div class="mt-5 text-center">
-            <button class="btn btn-link text-secondary text-decoration-none" id="viewHistoryBtn">
-                <i class="bi bi-clock-history me-1"></i> View Billing History
-            </button>
-        </div>
+        <!-- History Button (Relocated to Nav) -->
     </div>
 
     <!-- Modals -->
