@@ -13,19 +13,45 @@ body {
     color: #f1f5f9;
 }
 
-h1, h2, h3, h4, h5, .h1, .h2, .h3, .h4, .h5 {
+h1,
+h2,
+h3,
+h4,
+h5,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.card-title {
     font-family: 'Outfit', sans-serif;
+    color: #ffffff;
+    /* Explicitly white for titles */
+}
+
+.text-secondary {
+    color: #94a3b8 !important;
+    /* Slightly brighter secondary text */
 }
 
 .gradient-text {
     background: linear-gradient(135deg, var(--cyan), var(--emerald));
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
-.text-cyan { color: var(--cyan) !important; }
-.text-emerald { color: var(--emerald) !important; }
-.bg-dark-soft { background-color: var(--bg-dark-soft); }
+.text-cyan {
+    color: var(--cyan) !important;
+}
+
+.text-emerald {
+    color: var(--emerald) !important;
+}
+
+.bg-dark-soft {
+    background-color: var(--bg-dark-soft);
+}
 
 .glass-card {
     background: var(--glass-bg);
@@ -42,7 +68,9 @@ h1, h2, h3, h4, h5, .h1, .h2, .h3, .h4, .h5 {
     border-color: var(--cyan);
     color: var(--cyan);
 }
-.btn-outline-cyan:hover, .btn-check:checked + .btn-outline-cyan {
+
+.btn-outline-cyan:hover,
+.btn-check:checked+.btn-outline-cyan {
     background-color: var(--cyan);
     color: white;
 }
@@ -51,7 +79,9 @@ h1, h2, h3, h4, h5, .h1, .h2, .h3, .h4, .h5 {
     border-color: var(--emerald);
     color: var(--emerald);
 }
-.btn-outline-emerald:hover, .btn-check:checked + .btn-outline-emerald {
+
+.btn-outline-emerald:hover,
+.btn-check:checked+.btn-outline-emerald {
     background-color: var(--emerald);
     color: white;
 }
@@ -80,6 +110,12 @@ h1, h2, h3, h4, h5, .h1, .h2, .h3, .h4, .h5 {
 
 .table-dark {
     --bs-table-bg: transparent;
+    color: #ffffff !important;
+}
+
+.table-dark td,
+.table-dark th {
+    color: #ffffff !important;
 }
 
 .collapse {
@@ -94,13 +130,16 @@ h1, h2, h3, h4, h5, .h1, .h2, .h3, .h4, .h5 {
 ::-webkit-scrollbar {
     width: 8px;
 }
+
 ::-webkit-scrollbar-track {
     background: var(--bg-dark);
 }
+
 ::-webkit-scrollbar-thumb {
     background: var(--bg-dark-soft);
     border-radius: 10px;
 }
+
 ::-webkit-scrollbar-thumb:hover {
     background: var(--cyan);
 }
