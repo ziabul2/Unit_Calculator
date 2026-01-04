@@ -1,0 +1,106 @@
+:root {
+    --bg-dark: #0f172a;
+    --bg-dark-soft: #1e293b;
+    --cyan: #06b6d4;
+    --emerald: #10b981;
+    --glass-bg: rgba(30, 41, 59, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.1);
+}
+
+body {
+    background-color: var(--bg-dark);
+    font-family: 'Inter', sans-serif;
+    color: #f1f5f9;
+}
+
+h1, h2, h3, h4, h5, .h1, .h2, .h3, .h4, .h5 {
+    font-family: 'Outfit', sans-serif;
+}
+
+.gradient-text {
+    background: linear-gradient(135deg, var(--cyan), var(--emerald));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.text-cyan { color: var(--cyan) !important; }
+.text-emerald { color: var(--emerald) !important; }
+.bg-dark-soft { background-color: var(--bg-dark-soft); }
+
+.glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.glass-card:hover {
+    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+}
+
+.btn-outline-cyan {
+    border-color: var(--cyan);
+    color: var(--cyan);
+}
+.btn-outline-cyan:hover, .btn-check:checked + .btn-outline-cyan {
+    background-color: var(--cyan);
+    color: white;
+}
+
+.btn-outline-emerald {
+    border-color: var(--emerald);
+    color: var(--emerald);
+}
+.btn-outline-emerald:hover, .btn-check:checked + .btn-outline-emerald {
+    background-color: var(--emerald);
+    color: white;
+}
+
+.btn-primary-gradient {
+    background: linear-gradient(135deg, var(--cyan), var(--emerald));
+    border: none;
+    color: white;
+    box-shadow: 0 4px 15px rgba(6, 182, 212, 0.3);
+    transition: all 0.3s ease;
+}
+
+.btn-primary-gradient:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(6, 182, 212, 0.4);
+    color: white;
+}
+
+.form-control:focus {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-color: var(--cyan);
+    box-shadow: 0 0 0 0.25rem rgba(6, 182, 212, 0.25);
+    color: white;
+}
+
+.table-dark {
+    --bs-table-bg: transparent;
+}
+
+.collapse {
+    transition: all 0.4s cubic-bezier(0, 1, 0, 1);
+}
+
+.collapse.show {
+    transition: all 0.4s ease-in-out;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: var(--bg-dark);
+}
+::-webkit-scrollbar-thumb {
+    background: var(--bg-dark-soft);
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--cyan);
+}
