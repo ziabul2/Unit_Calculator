@@ -39,11 +39,11 @@ class BillingEngine {
      * Fair Splitting Logic (Dual Meter Mode)
      * Ensures both parties share the benefit of lower slabs proportionally.
      */
-    public static function splitBill($totalUnits, $subUnits, $energyCost, $fixedCharges) {
+    public static function splitBill($totalUnits, $subUnits, $energyCost, $demandCharge, $vatAmount) {
         if ($totalUnits <= 0) {
             return [
-                'owner' => ['units' => 0, 'energy' => 0, 'fixed' => 0, 'total' => 0],
-                'tenant' => ['units' => 0, 'energy' => 0, 'fixed' => 0, 'total' => 0],
+                'owner' => ['units' => 0, 'energy' => 0, 'demand' => 0, 'vat' => 0, 'total' => 0],
+                'tenant' => ['units' => 0, 'energy' => 0, 'demand' => 0, 'vat' => 0, 'total' => 0],
                 'avg_rate' => 0
             ];
         }
@@ -56,21 +56,24 @@ class BillingEngine {
         $tenantEnergy = $tenantUnits * $avgRate;
         $ownerEnergy = $ownerUnits * $avgRate;
 
-        // Fixed costs (Demand Charge + VAT) split 50/50
-        $fixedSplit = $fixedCharges / 2;
+        // Splits for fixed charges (Demand and VAT) usually 50/50
+        $demandSplit = $demandCharge / 2;
+        $vatSplit = $vatAmount / 2;
 
         return [
             'owner' => [
                 'units' => round($ownerUnits, 2),
                 'energy' => round($ownerEnergy, 2),
-                'fixed' => round($fixedSplit, 2),
-                'total' => ceil($ownerEnergy + $fixedSplit)
+                'demand' => round($demandSplit, 2),
+                'vat' => round($vatSplit, 2),
+                'total' => ceil($ownerEnergy + $demandSplit + $vatSplit)
             ],
             'tenant' => [
                 'units' => round($tenantUnits, 2),
                 'energy' => round($tenantEnergy, 2),
-                'fixed' => round($fixedSplit, 2),
-                'total' => ceil($tenantEnergy + $fixedSplit)
+                'demand' => round($demandSplit, 2),
+                'vat' => round($vatSplit, 2),
+                'total' => ceil($tenantEnergy + $demandSplit + $vatSplit)
             ],
             'avg_rate' => round($avgRate, 2)
         ];

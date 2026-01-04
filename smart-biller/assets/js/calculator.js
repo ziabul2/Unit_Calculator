@@ -105,7 +105,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const rows = [
             { label: 'Units Consumed', owner: data.owner.units, tenant: data.tenant.units, total: data.totalUnits, isUnits: true },
             { label: 'Energy Cost', owner: data.owner.energy, tenant: data.tenant.energy, total: data.energyCost },
-            { label: 'Demand + VAT', owner: data.owner.fixed, tenant: data.tenant.fixed, total: data.fixedCharges },
+            { label: 'Demand Charge', owner: data.owner.demand, tenant: data.tenant.demand, total: data.demandChargeTotal },
+            { label: 'VAT Amount', owner: data.owner.vat, tenant: data.tenant.vat, total: data.vatAmountTotal },
             { label: 'Grand Total', owner: data.owner.total, tenant: data.tenant.total, total: data.totalBill, highlight: true }
         ];
 

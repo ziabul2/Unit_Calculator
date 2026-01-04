@@ -27,18 +27,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $energyCost = BillingEngine::calculateEnergyCost($totalUnits);
 
     // 3. Apply VAT to (Energy Cost + Demand Charge)
-    $fixedCharges = $demandCharge + (($energyCost + $demandCharge) * ($vatPercent / 100));
-    $totalBill = ceil($energyCost + $fixedCharges);
+    $vatAmount = ($energyCost + $demandCharge) * ($vatPercent / 100);
+    $totalBill = ceil($energyCost + $demandCharge + $vatAmount);
 
     // 4. Split logic
-    $splitData = BillingEngine::splitBill($totalUnits, $subUnits, $energyCost, $fixedCharges);
+    $splitData = BillingEngine::splitBill($totalUnits, $subUnits, $energyCost, $demandCharge, $vatAmount);
 
     $responseData = [
         'totalUnits' => $totalUnits,
         'subUnits' => $subUnits,
         'energyCost' => $energyCost,
-        'fixedCharges' => round($fixedCharges, 2),
-        'totalBill' => round($totalBill, 2),
+        'demandChargeTotal' => round($demandCharge, 2),
+        'vatAmountTotal' => round($vatAmount, 2),
+        'totalBill' => $totalBill,
         'avgRate' => $splitData['avg_rate'],
         'owner' => $splitData['owner'],
         'tenant' => $splitData['tenant']

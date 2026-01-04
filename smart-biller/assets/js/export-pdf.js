@@ -30,6 +30,16 @@ document.getElementById('exportPdfBtn').addEventListener('click', () => {
     doc.setFontSize(10);
     doc.setFont('helvetica', 'normal');
     doc.text('Professional Electricity Calculation Receipt', 20, 32);
+    doc.textWithLink(
+        '@Admin: Md Ziabul Islam',
+        20,
+        38,
+        {
+            url: 'https://fb.com/ziabul123',
+            newWindow: true
+        }
+    );
+
 
     doc.setTextColor(200, 200, 200);
     doc.text(`Generated on: ${timestamp}`, 130, 25);
@@ -59,15 +69,17 @@ document.getElementById('exportPdfBtn').addEventListener('click', () => {
     const tableColumns = ['Description', 'Owner (Tk)', 'Total (Tk)'];
     const tableBody = [
         ['Energy Cost', data.owner.energy.toFixed(2), data.energyCost.toFixed(2)],
-        ['Fixed Charges (Demand + VAT)', data.owner.fixed.toFixed(2), data.fixedCharges.toFixed(2)],
+        ['Demand Charge', data.owner.demand.toFixed(2), data.demandChargeTotal.toFixed(2)],
+        ['VAT Amount', data.owner.vat.toFixed(2), data.vatAmountTotal.toFixed(2)],
         ['GRAND TOTAL', data.owner.total.toFixed(2), data.totalBill.toFixed(2)]
     ];
 
     if (data.mode === 'dual') {
         tableColumns.splice(2, 0, 'Tenant (Tk)');
         tableBody[0].splice(2, 0, data.tenant.energy.toFixed(2));
-        tableBody[1].splice(2, 0, data.tenant.fixed.toFixed(2));
-        tableBody[2].splice(2, 0, data.tenant.total.toFixed(2));
+        tableBody[1].splice(2, 0, data.tenant.demand.toFixed(2));
+        tableBody[2].splice(2, 0, data.tenant.vat.toFixed(2));
+        tableBody[3].splice(2, 0, data.tenant.total.toFixed(2));
     }
 
     doc.autoTable({
@@ -77,18 +89,37 @@ document.getElementById('exportPdfBtn').addEventListener('click', () => {
         theme: 'grid',
         headStyles: { fillColor: secondaryColor },
         didParseCell: function (data) {
-            if (data.row.index === 2) {
+            if (data.row.index === (tableBody.length - 1)) {
                 data.cell.styles.fontStyle = 'bold';
             }
         }
     });
 
-    // Footer
-    const finalY = doc.lastAutoTable.finalY + 30;
+    // Author Footer Section
+    const finalY = doc.lastAutoTable.finalY + 25;
+
+    // Draw a subtle line
+    doc.setDrawColor(200, 200, 200);
+    doc.line(20, finalY - 5, 190, finalY - 5);
+
+    doc.setFontSize(12);
+    doc.setTextColor(15, 23, 42); // bg-dark
+    doc.setFont('helvetica', 'bold');
+    doc.text('Authorized by: Md Ziabul Islam (ZiM)', 20, finalY + 5);
+
     doc.setFontSize(10);
+    doc.setFont('helvetica', 'normal');
     doc.setTextColor(100, 100, 100);
-    doc.text('Thank you for using Smart Biller.', 20, finalY);
-    doc.text('This is an electronically generated report.', 20, finalY + 5);
+    doc.text('Software Engineer | Web Application Developer', 20, finalY + 12);
+
+    // Social Links
+    doc.setTextColor(6, 182, 212); // Cyan
+    doc.text('GitHub: github.com/ziabul2', 20, finalY + 22);
+    doc.text('Facebook: fb.com/ziabul123', 20, finalY + 28);
+
+    doc.setTextColor(100, 100, 100);
+    doc.setFontSize(9);
+    doc.text('Thank you for using Smart Biller. This is an electronically generated report.', 20, finalY + 40);
 
     // Save PDF
     const filename = `SmartBiller_Bill_${new Date().getTime()}.pdf`;
